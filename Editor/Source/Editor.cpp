@@ -1,14 +1,15 @@
 #include "Core/Logger.h"
+#include "Core/Window.h"
 int main()
 {
 
     Core::Logger::Init();
-    CE_INFO("A %s", "S");
-    CE_DEBUG("A %s", "S");
-    CE_TRACE("A %s", "S");
-    CE_WARN("A %s", "S");
-    CE_ERROR("A %s", "S");
+    Core::WindowConfiguration config{.Width = 1280,
+                                     .Height = 720,
+                                     .Title = "Hello world",
+                                     .SizeMode = Core::WindowSizeMode::Windowed};
+    Core::Window window(config);
 
-    while (true)
-        ;
+    while (!window.HasCloseRequest())
+        window.Update();
 }

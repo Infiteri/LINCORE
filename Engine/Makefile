@@ -1,5 +1,6 @@
 ASSEMBLY=Engine
-INCLUDE_FLAGS=-IEngine/Source
+INCLUDE_FLAGS=-IEngine/Source $(VENDOR_INCLUDES)
+LNK=$(LINKER_FLAGS) -lglfw
 
 rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2)) $(wildcard $1$2)
 
@@ -21,5 +22,4 @@ $(OBJ_DIR)/%.o: %.cpp
 
 Link: $(OBJ_FILES)
 	@echo Linking $(ASSEMBLY)...
-	@g++ -shared -fPIC $(OBJ_FILES) -o $(BIN_DIR)/libEngine$(LIB_EXT) $(LINKER_FLAGS)
-
+	@g++ -shared -fPIC $(OBJ_FILES) -o $(BIN_DIR)/libEngine$(LIB_EXT) $(LNK)

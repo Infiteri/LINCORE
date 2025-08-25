@@ -35,3 +35,10 @@ namespace Core
     };
 
 } // namespace Core
+
+#define CE_LOG(level, msg, ...) Core::Logger::Log(level, msg, ##__VA_ARGS__)
+#define CE_INFO(msg, ...) Core::Logger::Log(Core::LogLevel::Info, msg, ##__VA_ARGS__)
+#define CE_WARN(msg, ...) Core::Logger::Log(Core::LogLevel::Warn, msg, ##__VA_ARGS__)
+#define CE_ERROR(msg, ...) Core::Logger::Log(Core::LogLevel::Error, msg, ##__VA_ARGS__)
+#define CE_DEBUG(msg, ...) Core::Logger::Log(Core::LogLevel::Debug, msg, ##__VA_ARGS__)
+#define CE_TRACE(msg, ...) Core::Logger::Log(Core::LogLevel::Trace, msg, ##__VA_ARGS__)

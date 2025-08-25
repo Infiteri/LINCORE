@@ -2,7 +2,7 @@ export BIN_DIR=Bin
 export OBJ_DIR=Bin-Obj
 export LINKER_FLAGS=-L$(BIN_DIR) 
 export DEFINES = -D_DEBUG -DCE_WITH_EDITOR  
-export COMPILER_FLAGS = -g -std=c++17
+export COMPILER_FLAGS = -g -std=c++17 -Wall
 
 # Platform dependence
 UNAME_S := $(shell uname -s)

@@ -16,6 +16,7 @@ namespace Core
     void Logger::Log(LogLevel level, const char *msg, ...)
     {
 #define LOG_MSG_SIZE 24000
+#define LOG_FINAL_SIZE (LOG_MSG_SIZE + 129)
 
         const char *strLevel = LevelToString[static_cast<int>(level)];
         LogColor color = (LogColor)level;
@@ -30,8 +31,8 @@ namespace Core
         if (ret < 0)
             return;
 
-        char finalMsg[LOG_MSG_SIZE];
-        std::snprintf(finalMsg, LOG_MSG_SIZE, "[%s]: %s\n", strLevel, message);
+        char finalMsg[LOG_FINAL_SIZE];
+        std::snprintf(finalMsg, LOG_FINAL_SIZE, "[%s]: %s\n", strLevel, message);
 
         Platform::SetLogColor(color);
         Platform::OutputMessage(finalMsg);

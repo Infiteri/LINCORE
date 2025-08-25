@@ -3,11 +3,11 @@ int main()
 {
 
     Core::Logger::Init();
-    Core::Logger::Log(Core::LogLevel::Info, "A %s", "S");
-    Core::Logger::Log(Core::LogLevel::Debug, "A %s", "S");
-    Core::Logger::Log(Core::LogLevel::Trace, "A %s", "S");
-    Core::Logger::Log(Core::LogLevel::Warn, "A %s", "S");
-    Core::Logger::Log(Core::LogLevel::Error, "A %s", "S");
+    CE_INFO("A %s", "S");
+    CE_DEBUG("A %s", "S");
+    CE_TRACE("A %s", "S");
+    CE_WARN("A %s", "S");
+    CE_ERROR("A %s", "S");
 
     while (true)
         ;

@@ -15,9 +15,9 @@ Compile: $(OBJ_FILES)
 $(OBJ_DIR)/%.o: %.cpp
 	@echo Compiling $<...
 	@mkdir -p $(dir $@)
-	@g++ -fPIC $< $(COMPILER_FLAGS) -c -o $@ $(DEFINES) $(INCLUDE_FLAGS)
+	@g++ -fPIC $< $(COMPILER_FLAGS) -c -o $@ $(DEFINES) $(INCLUDE_FLAGS) $(VENDOR_INCLUDES)
 
 Link: $(OBJ_FILES)
 	@echo Linking $(ASSEMBLY)...
-	@g++ $(OBJ_FILES) -fPIC -o $(BIN_DIR)/$(ASSEMBLY)$(EXE_EXT) $(LINKER_FLAGS) -lEngine 
+	@g++ $(OBJ_FILES) $(OBJ_DIR)/Editor/Source/glad.o -fPIC -o $(BIN_DIR)/$(ASSEMBLY)$(EXE_EXT) $(LINKER_FLAGS) -lEngine 
 

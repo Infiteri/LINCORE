@@ -42,6 +42,8 @@ namespace Core
             glfwMaximizeWindow(handle); // Windows/macOS
 #endif
         }
+
+        glfwGetWindowSize(handle, &config.Width, &config.Height);
     }
 
     Window::~Window()

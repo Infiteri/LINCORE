@@ -1,5 +1,10 @@
 #pragma once
 
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef unsigned int u32;
+typedef unsigned long long u64;
+
 #define CE_PLATFORM_NONE 0
 #define CE_PLATFORM_LINUX 1
 #define CE_PLATFORM_WIN 2

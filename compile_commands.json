@@ -2,7 +2,7 @@
 [
   {
     "directory": "/home/vanea/Desktop/CORE",
-    "command": "g++ -IEngine/Source -IEditor/Source -IBin -std=c++20 -g -c Editor/Source/Main.cpp -o Bin-Obj/Editor/Source/Main.o",
+    "command": "g++ -IEngine/Source -IEngine/Vendor/GLAD/include -IEditor/Source -IBin -std=c++20 -g -c Editor/Source/Main.cpp -o Bin-Obj/Editor/Source/Main.o",
     "file": "Editor/Source/Main.cpp"
   }
 ]

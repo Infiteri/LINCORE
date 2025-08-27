@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Base.h"
+#include "Core/Application.h"
 #include "Core/Window.h"
 #include <memory>
 
@@ -12,10 +13,11 @@ namespace Core
         struct State
         {
             std::shared_ptr<Window> _Window;
+            Application *AppInstance;
         };
 
     public:
-        static void PreInit();
+        static void PreInit(Application *app);
         static void Init();
 
         static bool HasCloseRequest();

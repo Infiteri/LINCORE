@@ -24,10 +24,8 @@ namespace Core
     {
         // todo: Initialize and other engine specific stuff
 
-        Engine::PreInit();
+        Engine::PreInit(app);
         Engine::Init();
-        if (app)
-            app->Init();
     }
 
     void EngineLoop::Run()
@@ -35,19 +33,14 @@ namespace Core
         while (!Engine::HasCloseRequest())
         {
             Engine::Update();
-            if (app)
-                app->Update();
-
             Engine::Render();
-            if (app)
-                app->Render();
         }
     }
 
     void EngineLoop::Shutdown()
     {
-        if (app)
-            app->Shutdown();
+        Engine::Shutdown();
+        delete app;
     }
 
 } // namespace Core

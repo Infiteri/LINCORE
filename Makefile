@@ -16,9 +16,12 @@ export LIB_EXT=.dll
 export EXE_EXT=.exe
 endif
 
-.PHONY: All Scaffold Engine Editor Clean Run Vendor Tests
+.PHONY: All Scaffold Engine Editor Clean Run Vendor Tests Assets
 
-All: Scaffold Engine Editor
+All: Scaffold Engine Editor Assets
+
+Assets:
+	@cp Shader.glsl $(BIN_DIR)/Shader.glsl
 
 Engine: Scaffold
 	@$(MAKE) -f Engine/Makefile All -j8

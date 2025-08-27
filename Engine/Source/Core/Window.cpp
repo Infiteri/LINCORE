@@ -1,10 +1,12 @@
 #include "Window.h"
 #include "Core/Logger.h"
+#include "Renderer/Renderer.h"
 #include <GLFW/glfw3.h>
-#include <cstddef>
 
 namespace Core
 {
+    static void OnResize(GLFWwindow *_, int w, int h) { Renderer::Viewport(w, h); }
+
     Window::Window(WindowConfiguration &config)
     {
         if (!glfwInit())
@@ -42,6 +44,9 @@ namespace Core
             glfwMaximizeWindow(handle); // Windows/macOS
 #endif
         }
+
+        // bind callbacks
+        glfwSetWindowSizeCallback(handle, OnResize);
 
         glfwGetWindowSize(handle, &config.Width, &config.Height);
     }

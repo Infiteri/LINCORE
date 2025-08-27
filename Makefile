@@ -16,7 +16,7 @@ export LIB_EXT=.dll
 export EXE_EXT=.exe
 endif
 
-.PHONY: All Scaffold Engine Editor Clean Run Vendor
+.PHONY: All Scaffold Engine Editor Clean Run Vendor Tests
 
 All: Scaffold Engine Editor
 
@@ -34,6 +34,9 @@ Scaffold:
 	@echo "Scaffolding ..."
 	@mkdir -p $(BIN_DIR)
 	@mkdir -p $(OBJ_DIR)
+
+Tests:
+	@$(MAKE) -f Tests/Makefile -j8
 
 Clean:
 	@echo "Cleaning ..."

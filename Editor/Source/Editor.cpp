@@ -3,6 +3,7 @@
 #include "Core/Logger.h"
 #include "Core/Window.h"
 #include "Renderer/Buffer/Buffer.h"
+#include "Renderer/Buffer/VertexArray.h"
 #include "Renderer/Shader.h"
 #include <array>
 #include <cmath>
@@ -67,8 +68,8 @@ std::array<float, 16> LookAt(float eyeX, float eyeY, float eyeZ, float centerX, 
             1};
 }
 
-GLuint VAO;
-Core::Buffer *EBO;
+Core::VertexArray *array;
+
 class EditorApplication : public Core::Application
 {
 public:
@@ -90,17 +91,13 @@ public:
             2, 3, 0  // second triangle (bottom-right, bottom-left, top-left)
         };
 
-        glGenVertexArrays(1, &VAO);
-        glBindVertexArray(VAO);
+        array = new Core::VertexArray();
 
-        Core::Buffer *VBO2 = new Core::Buffer(Core::BufferType::Vertex);
-        EBO = new Core::Buffer(Core::BufferType::Index);
+        array->GenerateVertexBuffer(vertices, sizeof(vertices));
+        array->GetVertexBuffer()->AddLayout(0, 0, 3);
+        array->GetVertexBuffer()->AddLayout(1, 3, 3);
 
-        VBO2->BufferData(vertices, sizeof(vertices));
-        EBO->BufferData(indices, sizeof(indices));
-
-        VBO2->AddLayout(0, 0, 3);
-        VBO2->AddLayout(1, 3, 3);
+        array->GenerateIndexBuffer(indices, sizeof(indices));
 
         glEnable(GL_DEPTH_TEST);
 
@@ -118,8 +115,8 @@ public:
         glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glBindVertexArray(VAO);
-        EBO->Draw();
+        array->Bind();
+        array->GetIndexBuffer()->Draw();
     }
 };
 

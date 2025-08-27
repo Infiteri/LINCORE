@@ -135,6 +135,7 @@ namespace Core
         shader->Use();
         glBindVertexArray(VAO);
         EBO->Draw(); // draws using indices
+                     //
 
         return true;
     }

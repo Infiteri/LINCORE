@@ -30,13 +30,12 @@ namespace Core
 
     int TestMain()
     {
-        // note: Very basic Graphical Testing system
-
         Core::Logger::Init();
         TestManager testManager;
         testManager.SetupWindow();
-        testManager.AddTest(new VBOTest());
         testManager.AddTest(new EBOTest());
+
+        testManager.AddTest(new VBOTest());
         gladLoadGL();
         while (!testManager.GetWindow()->HasCloseRequest())
         {
@@ -57,9 +56,7 @@ namespace Core
                 std::cin.get();
             }
 
-            glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+            std::cin.get();
             testManager.GetWindow()->Update();
             testManager.GetTests().clear();
         }

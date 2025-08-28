@@ -1,6 +1,4 @@
-
 #include "Renderer.h"
-#include "Core/Logger.h"
 #include "Renderer/Buffer/Framebuffer.h"
 #include "Renderer/Buffer/VertexArray.h"
 #include "Renderer/Shader.h"

@@ -35,6 +35,8 @@ namespace Core
         bool HasCloseRequest();
         void Update();
 
+        GLFWwindow *GetHandle() { return handle; };
+
     private:
         GLFWwindow *handle;
     };

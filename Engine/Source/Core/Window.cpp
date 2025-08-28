@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "Core/Input.h"
 #include "Core/Logger.h"
 #include "Renderer/Renderer.h"
 #include <GLFW/glfw3.h>
@@ -61,6 +62,17 @@ namespace Core
 
     void Window::Update()
     {
+
+        double x, y;
+        glfwGetCursorPos(handle, &x, &y);
+        Input::InternalUpdateMouse((int)x, (int)y);
+
+        for (int key = 0; key < GLFW_KEY_LAST; key++)
+            Input::InternalUpdateKey((Keys)key, glfwGetKey(handle, key) != 0);
+
+        for (int button = 0; button < GLFW_MOUSE_BUTTON_LAST; button++)
+            Input::InternalUpdateButton((Buttons)button, glfwGetMouseButton(handle, button) != 0);
+
         glfwPollEvents();
         glfwSwapBuffers(handle);
     }

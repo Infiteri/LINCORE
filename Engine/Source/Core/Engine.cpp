@@ -56,4 +56,6 @@ namespace Core
         if (state.AppInstance)
             state.AppInstance->Shutdown();
     }
+
+    std::shared_ptr<Window> Engine::GetWindow() { return state._Window; }
 } // namespace Core

@@ -1,5 +1,7 @@
 #include "Core/Application.h"
 #include "Core/Entry/EntryPoint.h"
+#include "Core/Input.h"
+#include "Core/Logger.h"
 #include "Renderer/Buffer/VertexArray.h"
 #include "Renderer/Shader.h"
 #include <glad/glad.h>
@@ -40,6 +42,15 @@ namespace Core
 
         void Render()
         {
+            if (Input::IsPressed(Keys::A))
+                Input::SetMouseMode(MouseModes::Hidden);
+
+            if (Input::IsPressed(Keys::D))
+                Input::SetMouseMode(MouseModes::Locked);
+
+            if (Input::IsPressed(Keys::S))
+                Input::SetMouseMode(MouseModes::Visible);
+
             shader->Use();
             array->Bind();
             array->GetIndexBuffer()->Draw();

@@ -86,7 +86,9 @@ namespace Core
             return;
 
         layout.push_back({.Loc = location, .Off = offset, .Size = size});
-        stride += size;
+        stride = 0;
+        for (auto &lay : layout)
+            stride += lay.Size;
         BindLayout();
     }
 

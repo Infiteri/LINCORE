@@ -17,6 +17,7 @@ namespace Core
         void Use();
 
         void Mat4(float *data, const char *name);
+        void Int(int data, const char *name);
 
         inline u32 GetID() const { return id; };
 

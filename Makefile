@@ -22,6 +22,7 @@ All: Scaffold Engine Editor Assets
 
 Assets:
 	@cp Shader.glsl $(BIN_DIR)/Shader.glsl
+	@cp Screen.glsl $(BIN_DIR)/Screen.glsl
 
 Engine: Scaffold
 	@$(MAKE) -f Engine/Makefile All -j8

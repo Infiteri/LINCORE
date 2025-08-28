@@ -7,13 +7,14 @@
 namespace Core
 {
     static VertexArray *array;
+    static Shader *shader;
 
     class EditorApplication : public Application
     {
     public:
         void Init()
         {
-            auto shader = Shader("Shader.glsl");
+            shader = new Shader("Shader.glsl");
 
             float vertices[] = {
                 // positions       // colors
@@ -35,13 +36,11 @@ namespace Core
             array->GetVertexBuffer()->AddLayout(1, 3, 3);
 
             array->GenerateIndexBuffer(indices, sizeof(indices));
-
-            glEnable(GL_DEPTH_TEST);
         }
 
         void Render()
         {
-
+            shader->Use();
             array->Bind();
             array->GetIndexBuffer()->Draw();
         }

@@ -60,6 +60,12 @@ namespace Core
         glUniformMatrix4fv(id, 1, GL_FALSE, data);
     }
 
+    void Shader::Int(int data, const char *name)
+    {
+        u32 id = GetUniId(name);
+        glUniform1i(id, data);
+    }
+
     void Shader::Compile(const char *vertSrc, const char *fragSrc)
     {
         u32 vert = CompileShader(GL_VERTEX_SHADER, vertSrc);

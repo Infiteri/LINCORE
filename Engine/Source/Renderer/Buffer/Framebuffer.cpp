@@ -13,6 +13,13 @@ namespace Core
 
     Framebuffer::~Framebuffer()
     {
+        DestroyForResize();
+
+        state.Passes.clear();
+    }
+
+    void Framebuffer::DestroyForResize()
+    {
         glDeleteFramebuffers(1, &id);
         for (auto &pass : state.Passes)
         {
@@ -24,8 +31,6 @@ namespace Core
             pass.Id = 0;
             pass.Index = 0;
         }
-
-        state.Passes.clear();
     }
 
     void Framebuffer::Bind() { glBindFramebuffer(GL_FRAMEBUFFER, id); }
@@ -93,4 +98,15 @@ namespace Core
 
         return nullptr;
     };
+
+    void Framebuffer::Resize(float w, float h)
+    {
+        if (id)
+            DestroyForResize();
+
+        state.Width = w;
+        state.Height = h;
+
+        Create();
+    }
 } // namespace Core

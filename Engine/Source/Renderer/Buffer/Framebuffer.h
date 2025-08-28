@@ -36,6 +36,7 @@ namespace Core
         void Bind();
         void Unbind();
         void Create();
+        void Resize(float w, float h);
 
         FBRenderPass *GetRenderPass(int index);
 
@@ -44,5 +45,8 @@ namespace Core
     private:
         u32 id;
         FramebufferConfiguration state;
+
+    private:
+        void DestroyForResize();
     };
 } // namespace Core

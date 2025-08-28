@@ -1,6 +1,10 @@
 #pragma once
 
 #include "Base.h"
+#include "Renderer/Buffer/Framebuffer.h"
+#include "Renderer/Buffer/VertexArray.h"
+#include "Renderer/Shader.h"
+#include <memory>
 
 namespace Core
 {
@@ -26,9 +30,25 @@ namespace Core
 
         static const struct Viewport &GetViewport();
 
+        struct GPUScreen
+        {
+            std::unique_ptr<VertexArray> Array;
+            std::unique_ptr<Framebuffer> Buffer;
+            std::shared_ptr<Shader> ScreenShader;
+        };
+
         struct State
         {
             struct Viewport Viewport;
+            GPUScreen Screen;
         };
+
+    private:
+        static void AfterResize();
+
+        static void InitializeGPUScreen();
+        static void BeginGPUScreenFrame();
+        static void EndGPUScreenFrame();
+        static void ResizeGPUScreen();
     };
 } // namespace Core

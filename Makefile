@@ -3,8 +3,8 @@ export OBJ_DIR=Bin-Obj
 export LINKER_FLAGS=-L$(BIN_DIR) 
 export DEFINES = -D_DEBUG -DCE_WITH_EDITOR  
 VP=-IEngine/Vendor
-export VENDOR_INCLUDES=$(VP)/GLFW/include $(VP)/GLAD/include
-export COMPILER_FLAGS = -g -std=c++17 -Wall 
+export VENDOR_INCLUDES=$(VP)/GLFW/include $(VP)/GLAD/include $(VP)/ImGui
+export COMPILER_FLAGS = -g -std=c++2a -Wall 
 
 # Platform dependence
 export UNAME_S := $(shell uname -s)
@@ -33,6 +33,7 @@ Editor: Scaffold
 Vendor:
 	@$(MAKE) -f Engine/Vendor/GLFW/Makefile -j8
 	@$(MAKE) -f Engine/Vendor/GLAD/Makefile -j8
+	@$(MAKE) -f Engine/Vendor/ImGui/Makefile -j8
 
 Scaffold:
 	@echo "Scaffolding ..."

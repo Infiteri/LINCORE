@@ -37,7 +37,15 @@ namespace Core
 
         GLFWwindow *GetHandle() { return handle; };
 
+        inline int GetWidth() const { return state.Width; };
+        inline int GetHeight() const { return state.Height; };
+
     private:
         GLFWwindow *handle;
+        struct
+        {
+            int Width, Height;
+        } state;
+        void UpdateState();
     };
 } // namespace Core

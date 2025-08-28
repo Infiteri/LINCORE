@@ -1,7 +1,10 @@
 #include "Engine.h"
+#include "Core/Layer/ImGuiLayer.h"
+#include "Core/Layer/Layer.h"
 #include "Core/Logger.h"
 #include "Core/Window.h"
 #include "Renderer/Renderer.h"
+
 #include <memory>
 
 namespace Core
@@ -22,6 +25,8 @@ namespace Core
         state._Window = std::make_shared<Window>(config);
 
         Renderer::Init();
+        ImGuiLayer::Init();
+        LayerStack::Init();
     }
 
     void Engine::Init()
@@ -34,6 +39,7 @@ namespace Core
 
     void Engine::Update()
     {
+        LayerStack::Update();
         if (state.AppInstance)
             state.AppInstance->Update();
     }
@@ -42,9 +48,14 @@ namespace Core
     {
         Renderer::BeginFrame();
         Renderer::Render();
+        LayerStack::Render();
 
         if (state.AppInstance)
             state.AppInstance->Render();
+
+        ImGuiLayer::BeginFrame();
+        LayerStack::RenderGui();
+        ImGuiLayer::EndFrame();
 
         Renderer::EndFrame();
 
@@ -53,6 +64,7 @@ namespace Core
 
     void Engine::Shutdown()
     {
+        LayerStack::Shutdown();
         if (state.AppInstance)
             state.AppInstance->Shutdown();
     }

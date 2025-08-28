@@ -1,9 +1,11 @@
 #include "Core/Application.h"
 #include "Core/Entry/EntryPoint.h"
 #include "Core/Input.h"
+#include "Core/Layer/Layer.h"
 #include "Core/Logger.h"
 #include "Renderer/Buffer/VertexArray.h"
 #include "Renderer/Shader.h"
+#include "imgui.h"
 #include <glad/glad.h>
 
 namespace Core
@@ -11,11 +13,22 @@ namespace Core
     static VertexArray *array;
     static Shader *shader;
 
+    class EditorLayer : public Layer
+    {
+    public:
+        void OnImGuiRender()
+        {
+            ImGui::Begin("Hello");
+            ImGui::End();
+        }
+    };
+
     class EditorApplication : public Application
     {
     public:
         void Init()
         {
+            LayerStack::AddLayer(new EditorLayer());
             shader = new Shader("Shader.glsl");
 
             float vertices[] = {

@@ -50,6 +50,7 @@ namespace Core
         glfwSetWindowSizeCallback(handle, OnResize);
 
         glfwGetWindowSize(handle, &config.Width, &config.Height);
+        UpdateState();
     }
 
     Window::~Window()
@@ -74,7 +75,9 @@ namespace Core
             Input::InternalUpdateButton((Buttons)button, glfwGetMouseButton(handle, button) != 0);
 
         glfwPollEvents();
+        UpdateState();
         glfwSwapBuffers(handle);
     }
 
+    void Window::UpdateState() { glfwGetWindowSize(handle, &state.Width, &state.Height); }
 } // namespace Core

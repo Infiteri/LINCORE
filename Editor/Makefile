@@ -19,5 +19,5 @@ $(OBJ_DIR)/%.o: %.cpp
 
 Link: $(OBJ_FILES)
 	@echo Linking $(ASSEMBLY)...
-	@g++ $(OBJ_FILES) $(OBJ_DIR)/Editor/Source/glad.o -fPIC -o $(BIN_DIR)/$(ASSEMBLY)$(EXE_EXT) $(LINKER_FLAGS) -lEngine 
+	@g++ $(OBJ_FILES) $(OBJ_DIR)/Editor/Source/glad.o -fPIC -o $(BIN_DIR)/$(ASSEMBLY)$(EXE_EXT) $(LINKER_FLAGS) -lEngine -lImGui
 

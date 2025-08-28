@@ -6,7 +6,7 @@ This version serves as an introduction of the Core engine in the world of Linux 
 
 Download the engine source code and go in the root directory
 ```
-make
+make Full
 ```
 should build everything for LINUX
 

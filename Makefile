@@ -16,7 +16,9 @@ export LIB_EXT=.dll
 export EXE_EXT=.exe
 endif
 
-.PHONY: All Scaffold Engine Editor Clean Run Vendor Tests Assets
+.PHONY: All Scaffold Engine Editor Clean Vendor Tests Assets Full
+
+Full: Scaffold Vendor Assets Engine Editor
 
 All: Scaffold Engine Editor Assets
 

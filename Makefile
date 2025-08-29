@@ -32,10 +32,10 @@ Engine: Scaffold
 Editor: Scaffold
 	@$(MAKE) -f Editor/Makefile All -j8
 
-Vendor:
-	@$(MAKE) -f Engine/Vendor/GLFW/Makefile -j8
-	@$(MAKE) -f Engine/Vendor/GLAD/Makefile -j8
-	@$(MAKE) -f Engine/Vendor/ImGui/Makefile -j8
+Vendor: Scaffold
+	@$(MAKE) -f Engine/Vendor/GLFW/Makefile -j12
+	@$(MAKE) -f Engine/Vendor/GLAD/Makefile -j12
+	@$(MAKE) -f Engine/Vendor/ImGui/Makefile -j12
 
 Scaffold:
 	@echo "Scaffolding ..."

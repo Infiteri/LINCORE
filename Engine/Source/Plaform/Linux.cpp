@@ -1,8 +1,8 @@
 #include "Base.h"
-#include <iostream>
 
 #if CE_PLATFORM == CE_PLATFORM_LINUX
 #include "Platform.h"
+#include <iostream>
 
 namespace Core
 {

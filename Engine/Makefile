@@ -1,6 +1,6 @@
 ASSEMBLY=Engine
 INCLUDE_FLAGS=-IEngine/Source $(VENDOR_INCLUDES)
-LNK = $(LINKER_FLAGS) -L$(BIN_DIR) -Wl,-rpath=$(BIN_DIR) -lglfw3 -lImGui
+LNK = $(LINKER_FLAGS) -L$(BIN_DIR) -Wl,-rpath=$(BIN_DIR) -l$(GLFW_LIB) -lImGui
 
 rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2)) $(wildcard $1$2)
 

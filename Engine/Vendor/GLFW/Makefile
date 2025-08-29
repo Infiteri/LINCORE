@@ -1,8 +1,13 @@
+
+BIN_DIR ?= Bin
+UNAME_S := $(shell uname -s)
+
 .PHONY: All
 
-# Copies the dll if needed
 All:
 ifeq ($(UNAME_S),Linux)
 else
-	cp "Engine/Vendor/GLFW/lib/glfw3.dll" $(BIN_DIR)/glfw3.dll
+	@echo "Copying GLFW DLLs to $(BIN_DIR)..."
+	cp -r Engine/Vendor/GLFW/lib $(BIN_DIR)/
 endif
+

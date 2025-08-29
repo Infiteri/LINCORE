@@ -11,16 +11,18 @@ export UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 export LIB_EXT=.so
 export EXE_EXT=
+export GLFW_LIB=glfw
 else
 export LIB_EXT=.dll
 export EXE_EXT=.exe
+export GLFW_LIB=glfw3
 endif
 
 .PHONY: All Scaffold Engine Editor Clean Vendor Tests Assets Full
 
-Full: Scaffold Vendor Assets Engine Editor
-
 All: Scaffold Engine Editor Assets
+
+Full: Scaffold Vendor Assets Engine Editor
 
 Assets:
 	@cp Shader.glsl $(BIN_DIR)/Shader.glsl
@@ -33,7 +35,7 @@ Editor: Scaffold
 	@$(MAKE) -f Editor/Makefile All -j8
 
 Vendor: Scaffold
-	@$(MAKE) -f Engine/Vendor/GLFW/Makefile -j12
+	@$(MAKE) -f Engine/Vendor/GLFW/Makefile -j12 All
 	@$(MAKE) -f Engine/Vendor/GLAD/Makefile -j12
 	@$(MAKE) -f Engine/Vendor/ImGui/Makefile -j12
 

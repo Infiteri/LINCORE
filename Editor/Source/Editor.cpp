@@ -7,6 +7,8 @@
 #include "Math/Vector.h"
 #include "Renderer/Buffer/VertexArray.h"
 #include "Renderer/Camera/Camera.h"
+#include "Renderer/Camera/PerspectiveCamera.h"
+#include "Renderer/Renderer.h"
 #include "Renderer/Shader.h"
 #include "imgui.h"
 #include <glad/glad.h>
@@ -15,6 +17,7 @@ namespace Core
 {
     static VertexArray *array;
     static Shader *shader;
+    static PerspectiveCamera cam{90, 1280.f / 720, 0.001, 1000};
 
     class EditorLayer : public Layer
     {
@@ -22,17 +25,23 @@ namespace Core
         void OnImGuiRender()
         {
             ImGui::Begin("Hello");
+
+            float f = cam.GetFOV();
+            if (ImGui::DragFloat("FOV", &f, 0.04))
+            {
+                cam.SetFOV(f);
+            }
+
             ImGui::End();
         }
     };
 
-    static Camera cam;
     class EditorApplication : public Application
     {
     public:
         void Init()
         {
-            cam.SetProjection(Matrix4::Perspective(90, 1280.0f / 720, 0.01, 1000));
+            cam = PerspectiveCamera();
 
             LayerStack::AddLayer(new EditorLayer());
             shader = new Shader("Shader.glsl");
@@ -72,6 +81,8 @@ namespace Core
                 cam.GetPosition().z += .5;
                 cam.UpdateView();
             }
+
+            cam.UpdateProjection(Renderer::GetViewport().GetAspect());
 
             shader->Use();
             shader->Mat4(cam.GetProjection(), "uProjection");

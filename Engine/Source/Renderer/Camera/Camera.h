@@ -22,7 +22,7 @@ namespace Core
 
         inline Vector3 &GetPosition() { return position; };
 
-    private:
+    protected:
         Matrix4 projection, view;
         Vector3 position;
     };

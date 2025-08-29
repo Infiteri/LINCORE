@@ -25,7 +25,7 @@ namespace Core
         {
             float Width;
             float Height;
-            inline const float GetAspect() { return Width / Height; };
+            inline float GetAspect() const { return Width / Height; };
         };
 
         static const struct Viewport &GetViewport();

@@ -3,7 +3,10 @@
 #include "Core/Input.h"
 #include "Core/Layer/Layer.h"
 #include "Core/Logger.h"
+#include "Math/Matrix.h"
+#include "Math/Vector.h"
 #include "Renderer/Buffer/VertexArray.h"
+#include "Renderer/Camera/Camera.h"
 #include "Renderer/Shader.h"
 #include "imgui.h"
 #include <glad/glad.h>
@@ -23,11 +26,14 @@ namespace Core
         }
     };
 
+    static Camera cam;
     class EditorApplication : public Application
     {
     public:
         void Init()
         {
+            cam.SetProjection(Matrix4::Perspective(90, 1280.0f / 720, 0.01, 1000));
+
             LayerStack::AddLayer(new EditorLayer());
             shader = new Shader("Shader.glsl");
 
@@ -56,15 +62,20 @@ namespace Core
         void Render()
         {
             if (Input::IsPressed(Keys::A))
-                Input::SetMouseMode(MouseModes::Hidden);
+            {
+                cam.GetPosition().z -= .5;
+                cam.UpdateView();
+            }
 
             if (Input::IsPressed(Keys::D))
-                Input::SetMouseMode(MouseModes::Locked);
-
-            if (Input::IsPressed(Keys::S))
-                Input::SetMouseMode(MouseModes::Visible);
+            {
+                cam.GetPosition().z += .5;
+                cam.UpdateView();
+            }
 
             shader->Use();
+            shader->Mat4(cam.GetProjection(), "uProjection");
+            shader->Mat4(cam.GetView(), "uView");
             array->Bind();
             array->GetIndexBuffer()->Draw();
         }

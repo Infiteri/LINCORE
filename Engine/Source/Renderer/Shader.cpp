@@ -60,6 +60,8 @@ namespace Core
         glUniformMatrix4fv(id, 1, GL_FALSE, data);
     }
 
+    void Shader::Mat4(const Matrix4 &mat4, const char *name) { Mat4((float *)mat4.data, name); }
+
     void Shader::Int(int data, const char *name)
     {
         u32 id = GetUniId(name);

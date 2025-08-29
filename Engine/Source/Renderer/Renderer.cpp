@@ -88,7 +88,7 @@ namespace Core
         // todo: From 'system' when in place
         // shader
         {
-            s.ScreenShader = std::make_shared<Shader>("Screen.glsl");
+            s.ScreenShader = std::make_shared<Shader>("EngineAssets/Screen.glsl");
         }
     }
 

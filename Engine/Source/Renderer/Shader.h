@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Base.h"
+#include "Math/Matrix.h"
 #include <string>
 #include <unordered_map>
 
@@ -17,6 +18,7 @@ namespace Core
         void Use();
 
         void Mat4(float *data, const char *name);
+        void Mat4(const Matrix4 &mat4, const char *name);
         void Int(int data, const char *name);
 
         inline u32 GetID() const { return id; };

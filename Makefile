@@ -6,6 +6,8 @@ VP=-IEngine/Vendor
 export VENDOR_INCLUDES=$(VP)/GLFW/include $(VP)/GLAD/include $(VP)/ImGui
 export COMPILER_FLAGS = -g -std=c++2a -Wall 
 
+ENGINE_ASSETS_PATH=EngineAssets
+
 # Platform dependence
 export UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
@@ -26,7 +28,7 @@ Full: Scaffold Vendor Assets Engine Editor
 
 Assets:
 	@cp Shader.glsl $(BIN_DIR)/Shader.glsl
-	@cp Screen.glsl $(BIN_DIR)/Screen.glsl
+	@cp -r Engine/Assets $(BIN_DIR)/$(ENGINE_ASSETS_PATH)
 
 Engine: Scaffold
 	@$(MAKE) -f Engine/Makefile All -j8

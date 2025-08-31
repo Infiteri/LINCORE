@@ -19,10 +19,20 @@ namespace Core
         Matrix4(const Matrix4 &m);
 
         float *operator()() { return data; };
+        Matrix4 operator*(const Matrix4 &o) { return Matrix4::Multiply(*this, o); }
 
         static Matrix4 Perspective(float fov, float aspect, float near, float far);
         static Matrix4 Multiply(const Matrix4 &a, const Matrix4 &b);
+        static Matrix4 Invert(const Matrix4 &a);
 
         static Matrix4 Translate(const Vector3 &position);
+        static Matrix4 Scale(const Vector3 &scale);
+
+        static Matrix4 RotateX(float x);
+        static Matrix4 RotateY(float x);
+        static Matrix4 RotateZ(float x);
+
+        static Matrix4 RotateXYZ(const Vector3 &vec);
+        static Matrix4 RotateZYX(const Vector3 &vec);
     };
 } // namespace Core

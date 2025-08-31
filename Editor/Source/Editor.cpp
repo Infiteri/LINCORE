@@ -2,11 +2,9 @@
 #include "Core/Entry/EntryPoint.h"
 #include "Core/Input.h"
 #include "Core/Layer/Layer.h"
-#include "Core/Logger.h"
-#include "Math/Matrix.h"
+#include "Math/Transform.h"
 #include "Math/Vector.h"
 #include "Renderer/Buffer/VertexArray.h"
-#include "Renderer/Camera/Camera.h"
 #include "Renderer/Camera/PerspectiveCamera.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/Shader.h"
@@ -18,6 +16,8 @@ namespace Core
     static VertexArray *array;
     static Shader *shader;
     static PerspectiveCamera cam{90, 1280.f / 720, 0.001, 1000};
+
+    Transform t;
 
     class EditorLayer : public Layer
     {
@@ -31,6 +31,10 @@ namespace Core
             {
                 cam.SetFOV(f);
             }
+
+            ImGui::DragFloat3("position", &t[0].x, 0.04);
+            ImGui::DragFloat3("rotation", &t[1].x, 0.04);
+            ImGui::DragFloat3("scale", &t[2].x, 0.04);
 
             ImGui::End();
         }
@@ -46,17 +50,20 @@ namespace Core
             LayerStack::AddLayer(new EditorLayer());
             shader = new Shader("Shader.glsl");
 
-            float vertices[] = {
-                // positions       // colors
-                -0.5f, 0.5f,  0.0f, 1.0f, 0.0f, 0.0f, // top-left, red
-                0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 0.0f, // top-right, green
-                0.5f,  -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right, blue
-                -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f  // bottom-left, yellow
-            };
+            float vertices[] = {// positions          // colors
+                                -0.5f, -0.5f, -0.5f, 1.0f, 0.0f,  0.0f,  0.5f, -0.5f, -0.5f, 0.0f,
+                                1.0f,  0.0f,  0.5f,  0.5f, -0.5f, 0.0f,  0.0f, 1.0f,  -0.5f, 0.5f,
+                                -0.5f, 1.0f,  1.0f,  0.0f, -0.5f, -0.5f, 0.5f, 1.0f,  0.0f,  1.0f,
+                                0.5f,  -0.5f, 0.5f,  0.0f, 1.0f,  1.0f,  0.5f, 0.5f,  0.5f,  1.0f,
+                                1.0f,  1.0f,  -0.5f, 0.5f, 0.5f,  0.0f,  0.0f, 0.0f};
 
             unsigned int indices[] = {
-                0, 1, 2, // first triangle (top-left, top-right, bottom-right)
-                2, 3, 0  // second triangle (bottom-right, bottom-left, top-left)
+                0, 1, 2, 2, 3, 0, // back
+                4, 5, 6, 6, 7, 4, // front
+                0, 4, 7, 7, 3, 0, // left
+                1, 5, 6, 6, 2, 1, // right
+                3, 2, 6, 6, 7, 3, // top
+                0, 1, 5, 5, 4, 0  // bottom
             };
 
             array = new VertexArray();
@@ -86,7 +93,8 @@ namespace Core
 
             shader->Use();
             shader->Mat4(cam.GetProjection(), "uProjection");
-            shader->Mat4(cam.GetView(), "uView");
+            shader->Mat4(Matrix4::Invert(cam.GetView()), "uView");
+            shader->Mat4(t.GetMatrix(), "uTransform");
             array->Bind();
             array->GetIndexBuffer()->Draw();
         }

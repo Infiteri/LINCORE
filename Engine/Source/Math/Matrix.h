@@ -20,6 +20,7 @@ namespace Core
 
         float *operator()() { return data; };
         Matrix4 operator*(const Matrix4 &o) { return Matrix4::Multiply(*this, o); }
+        const float *operator[](int row) const { return m[row]; }
 
         static Matrix4 Perspective(float fov, float aspect, float near, float far);
         static Matrix4 Multiply(const Matrix4 &a, const Matrix4 &b);
